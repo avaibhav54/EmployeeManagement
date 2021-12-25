@@ -86,17 +86,32 @@ public class EmployeeController {
 	}
 	
 	@PutMapping("/employee")
-	public Employee updateEmployee(@RequestBody Employee employee)
+	public ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee)
 	{
-		return this.employeeService.updatEmployee(employee);
+		 try {
+			 Employee updatEmployee = this.employeeService.updatEmployee(employee);
+				
+			 return ResponseEntity.ok(updatEmployee);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
 	}
 	
 	
 	@DeleteMapping("/employee/{id}")
-	public void deltetEmployee(@PathVariable("id") String id)
+	public ResponseEntity<Void> deltetEmployee(@PathVariable("id") String id)
 	{
 		long empid=Long.parseLong(id);
-		 this.employeeService.deleteEmployee(empid);
+		try {
+			 this.employeeService.deleteEmployee(empid);
+			 return ResponseEntity.ok().build();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+		
 				
 	}
 

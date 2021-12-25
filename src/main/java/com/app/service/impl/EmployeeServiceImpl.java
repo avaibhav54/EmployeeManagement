@@ -23,9 +23,17 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public Employee getEmployeeById(long id) {
 		// TODO Auto-generated method stub
+		try {
+
+			Employee employee= this.employeeDao.getById(id);
+			System.out.println(employee);
+			return employee;
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Not found");
+			return null;
+		}
 		
-		Employee employee= this.employeeDao.getById(id);
-		return employee;
 	}
 
 	@Override
